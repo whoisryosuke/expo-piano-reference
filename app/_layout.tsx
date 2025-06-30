@@ -36,13 +36,7 @@ export default function RootLayout() {
     <TamaguiProvider config={config}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen
-            name="index"
-            options={{
-              // Hide the header for this route
-              headerShown: false,
-            }}
-          />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

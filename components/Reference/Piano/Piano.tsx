@@ -3,7 +3,7 @@ import React from "react";
 import { generateKeysByOctave } from "@/utils/piano";
 import PianoKey from "./PianoKey";
 import { XStack } from "tamagui";
-import { Note } from "@/constants/piano";
+import { BaseNote, Note } from "@/constants/piano";
 
 type Props = {
   pressed?: Note[];
@@ -16,13 +16,20 @@ const Piano = ({ pressed = [] }: Props) => {
     <XStack>
       {pianoKeySets.map((pianoKeySet, index) => (
         <XStack key={index}>
-          {pianoKeySet.map((pianoKey) => (
-            <PianoKey
-              key={pianoKey}
-              note={pianoKey}
-              pressed={pressed.includes(pianoKey)}
-            />
-          ))}
+          {pianoKeySet.map((pianoKey) => {
+            const testBlackNote = `${pianoKey.slice(0, -1)}#${pianoKey.slice(
+              -1
+            )}` as Note;
+            const isBlackPressed = pressed.includes(testBlackNote);
+            return (
+              <PianoKey
+                key={pianoKey}
+                note={pianoKey}
+                pressed={pressed.includes(pianoKey)}
+                blackPressed={isBlackPressed}
+              />
+            );
+          })}
         </XStack>
       ))}
     </XStack>
