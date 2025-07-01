@@ -1,5 +1,5 @@
 import { BaseNote, NOTE_LETTERS_WITH_BLACK } from "@/constants/piano";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, XStack, YStack } from "tamagui";
 import { Chord, ChordType, Scale, ScaleType } from "tonal";
 import ScaleReference from "./ScaleReference";
@@ -12,17 +12,23 @@ type Props = {
 };
 
 const ScaleTab = ({ baseNote = "C", octave }: Props) => {
-  var startTime = performance.now();
-  const scales = ScaleType.names().map((scaleType) => {
-    const rootNote = `${baseNote}${octave}`;
-    return {
-      note: rootNote,
-      name: `${rootNote} ${scaleType}`,
-      notes: Scale.get(`${rootNote} ${scaleType}`).notes,
-    };
-  }) as ReferenceItem[];
-  var endTime = performance.now();
-  console.log("Generating scales", `${endTime - startTime} milliseconds.`);
+  const [scales, setScales] = useState<ReferenceItem[]>([]);
+
+  useEffect(() => {
+    var startTime = performance.now();
+    const newScales = ScaleType.names().map((scaleType) => {
+      const rootNote = `${baseNote}${octave}`;
+      return {
+        note: rootNote,
+        name: `${rootNote} ${scaleType}`,
+        notes: Scale.get(`${rootNote} ${scaleType}`).notes,
+      };
+    }) as ReferenceItem[];
+    var endTime = performance.now();
+
+    setScales(newScales);
+    console.log("Generating scales", `${endTime - startTime} milliseconds.`);
+  }, [baseNote, octave]);
 
   const renderScales: ListRenderItem<ReferenceItem> = ({ item: scale }) => {
     return <ScaleReference key={scale.name} scale={scale} />;
@@ -30,7 +36,11 @@ const ScaleTab = ({ baseNote = "C", octave }: Props) => {
 
   return (
     <YStack gap="$4">
-      <FlatList data={scales} renderItem={renderScales} />
+      {scales.length == 0 ? (
+        <Text>Loading...</Text>
+      ) : (
+        <FlatList data={scales} renderItem={renderScales} />
+      )}
     </YStack>
   );
 };

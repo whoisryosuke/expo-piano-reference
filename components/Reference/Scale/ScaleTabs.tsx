@@ -39,6 +39,7 @@ const ScaleTabs = (props: Props) => {
   const [baseNote, setBaseNote] = useState<BaseNote>("C");
 
   const handleNoteChange = (note: BaseNote) => {
+    console.log("Changing note", note);
     setBaseNote(note);
   };
 
