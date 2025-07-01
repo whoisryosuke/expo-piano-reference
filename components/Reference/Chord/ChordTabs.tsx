@@ -10,22 +10,31 @@ import {
   XStack,
   Button,
   AnimatePresence,
+  Select,
 } from "tamagui";
 import ChordTest from "@/components/ChordTest";
 import { TouchableWithoutFeedback } from "react-native";
+import { NOTE_LETTERS } from "@/constants/piano";
 
-const TabsContent = ({ value, ...props }: TabsContentProps) => {
+const TabsContent = ({
+  value,
+  baseNote,
+  ...props
+}: {
+  value: string;
+  baseNote: string;
+}) => {
   return (
     <View
       animation="medium"
       enterStyle={{
         opacity: 0,
         y: 40,
-        scale: 0.9,
+        // scale: 0.9,
       }}
       {...props}
     >
-      <ChordTest octave={parseInt(value)} />
+      <ChordTest baseNote={baseNote} octave={parseInt(value)} />
     </View>
   );
 };
@@ -35,21 +44,38 @@ type Props = {};
 const OCTAVE_TABS = new Array(7).fill(0).map((_, index) => index + 1);
 
 const ChordTabs = (props: Props) => {
+  const [baseNote, setBaseNote] = useState("C");
   const [currentTab, setCurrentTab] = useState("1");
-
-  console.log(
-    "currentTab",
-    currentTab,
-    `${OCTAVE_TABS[0]}`,
-    currentTab == `${OCTAVE_TABS[0]}`
-  );
 
   const handleTabChange = (octave: string) => {
     setCurrentTab(octave);
   };
 
+  const handleNoteChange = (note: string) => {
+    setBaseNote(note);
+  };
+
   return (
     <View>
+      <XStack mb="$4">
+        {NOTE_LETTERS.map((noteLetter) => (
+          <Button
+            key={noteLetter}
+            bg={baseNote == noteLetter ? "$blue6" : "$white6"}
+            focusStyle={{
+              bg: "$blue8",
+            }}
+            pressStyle={{ bg: "$blue8" }}
+            flex={1}
+            borderRadius="$1"
+            onPress={() => handleNoteChange(noteLetter)}
+          >
+            <SizableText fontFamily="$body" textAlign="center">
+              {noteLetter}
+            </SizableText>
+          </Button>
+        ))}
+      </XStack>
       <XStack mb="$4">
         {OCTAVE_TABS.map((octave) => (
           <Button
@@ -70,7 +96,11 @@ const ChordTabs = (props: Props) => {
         ))}
       </XStack>
       <AnimatePresence initial={false}>
-        <TabsContent key={currentTab} value={currentTab} />
+        <TabsContent
+          key={`${baseNote}-${currentTab}`}
+          value={currentTab}
+          baseNote={baseNote}
+        />
       </AnimatePresence>
     </View>
   );

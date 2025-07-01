@@ -1,20 +1,21 @@
-import { NOTE_LETTERS_WITH_BLACK } from "@/constants/piano";
+import { BaseNote, NOTE_LETTERS_WITH_BLACK } from "@/constants/piano";
 import React from "react";
 import { Text, View, XStack, YStack } from "tamagui";
-import { Chord } from "tonal";
+import { Chord, ChordType } from "tonal";
 import ChordReference from "./Reference/Chord/ChordReference";
 
 type Props = {
+  baseNote: BaseNote;
   octave: number;
 };
 
-const ChordTest = ({ octave }: Props) => {
-  const chords = NOTE_LETTERS_WITH_BLACK.map((baseNote) => {
+const ChordTest = ({ baseNote = "C", octave }: Props) => {
+  const chords = ChordType.names().map((chordType) => {
     const rootNote = `${baseNote}${octave}`;
     return {
       note: rootNote,
-      name: `${rootNote}maj7`,
-      notes: Chord.notes("maj7", rootNote),
+      name: `${rootNote}${chordType}`,
+      notes: Chord.notes(chordType, rootNote),
     };
   });
 
