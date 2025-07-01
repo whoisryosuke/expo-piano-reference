@@ -9,12 +9,25 @@ import {
   Text,
   XStack,
   Button,
+  AnimatePresence,
 } from "tamagui";
 import ChordTest from "@/components/ChordTest";
 import { TouchableWithoutFeedback } from "react-native";
 
 const TabsContent = ({ value, ...props }: TabsContentProps) => {
-  return <ChordTest octave={parseInt(value)} />;
+  return (
+    <View
+      animation="medium"
+      enterStyle={{
+        opacity: 0,
+        y: 40,
+        scale: 0.9,
+      }}
+      {...props}
+    >
+      <ChordTest octave={parseInt(value)} />
+    </View>
+  );
 };
 
 type Props = {};
@@ -56,7 +69,9 @@ const ChordTabs = (props: Props) => {
           </Button>
         ))}
       </XStack>
-      <TabsContent value={currentTab} />
+      <AnimatePresence initial={false}>
+        <TabsContent key={currentTab} value={currentTab} />
+      </AnimatePresence>
     </View>
   );
 };

@@ -21,7 +21,7 @@ const ChordTest = ({ octave }: Props) => {
   return (
     <YStack gap="$4">
       {chords.map((chord) => (
-        <ChordReference key={chord.name} chord={chord} />
+        <ChordReference key={chord.name} chord={chord} octave={octave} />
       ))}
     </YStack>
   );

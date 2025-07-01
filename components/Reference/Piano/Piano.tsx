@@ -7,10 +7,15 @@ import { BaseNote, Note } from "@/constants/piano";
 
 type Props = {
   pressed?: Note[];
+  octaveRange?: number[];
 };
 
-const Piano = ({ pressed = [] }: Props) => {
-  const pianoKeySets = generateKeysByOctave(false, 4, 5) as Note[][];
+const Piano = ({ pressed = [], octaveRange = [4, 5] }: Props) => {
+  const pianoKeySets = generateKeysByOctave(
+    false,
+    octaveRange[0],
+    octaveRange[1]
+  ) as Note[][];
 
   const renderKeys: ListRenderItem<Note[]> = ({ item: pianoKeySet, index }) => {
     return (
