@@ -4,7 +4,7 @@ import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import ChordTest from "@/components/ChordTest";
+import ChordTest from "@/components/Reference/Chord/ChordTab";
 import { ScrollView, Text } from "tamagui";
 import ChordTabs from "@/components/Reference/Chord/ChordTabs";
 

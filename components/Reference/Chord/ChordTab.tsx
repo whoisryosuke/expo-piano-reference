@@ -2,7 +2,7 @@ import { BaseNote, NOTE_LETTERS_WITH_BLACK } from "@/constants/piano";
 import React from "react";
 import { Text, View, XStack, YStack } from "tamagui";
 import { Chord, ChordType } from "tonal";
-import ChordReference from "./Reference/Chord/ChordReference";
+import ChordReference from "./ChordReference";
 
 type Props = {
   baseNote: BaseNote;

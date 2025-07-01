@@ -12,7 +12,7 @@ import {
   AnimatePresence,
   Select,
 } from "tamagui";
-import ChordTest from "@/components/ChordTest";
+import ChordTab from "@/components/Reference/Chord/ChordTab";
 import { TouchableWithoutFeedback } from "react-native";
 import { NOTE_LETTERS } from "@/constants/piano";
 
@@ -34,7 +34,7 @@ const TabsContent = ({
       }}
       {...props}
     >
-      <ChordTest baseNote={baseNote} octave={parseInt(value)} />
+      <ChordTab baseNote={baseNote} octave={parseInt(value)} />
     </View>
   );
 };
