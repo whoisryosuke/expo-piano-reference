@@ -3,6 +3,8 @@ import React from "react";
 import { Text, View, XStack, YStack } from "tamagui";
 import { Chord, ChordType, Scale, ScaleType } from "tonal";
 import ScaleReference from "./ScaleReference";
+import { FlatList, ListRenderItem } from "react-native";
+import { ReferenceItem } from "../types";
 
 type Props = {
   baseNote: BaseNote;
@@ -18,15 +20,17 @@ const ScaleTab = ({ baseNote = "C", octave }: Props) => {
       name: `${rootNote} ${scaleType}`,
       notes: Scale.get(`${rootNote} ${scaleType}`).notes,
     };
-  });
+  }) as ReferenceItem[];
   var endTime = performance.now();
   console.log("Generating scales", `${endTime - startTime} milliseconds.`);
 
+  const renderScales: ListRenderItem<ReferenceItem> = ({ item: scale }) => {
+    return <ScaleReference key={scale.name} scale={scale} />;
+  };
+
   return (
     <YStack gap="$4">
-      {scales.map((scale) => (
-        <ScaleReference key={scale.name} baseNote={baseNote} scale={scale} />
-      ))}
+      <FlatList data={scales} renderItem={renderScales} />
     </YStack>
   );
 };

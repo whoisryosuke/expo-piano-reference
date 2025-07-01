@@ -6,16 +6,16 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { ScrollView, Text } from "tamagui";
+import { View, Text } from "tamagui";
 import ScaleTabs from "@/components/Reference/Scale/ScaleTabs";
 
 export default function TabTwoScreen() {
   return (
-    <ScrollView p="$4" bg="$background">
+    <View p="$4" bg="$background">
       <Text fontSize="$10" fontWeight="bold" mb="$4" mt="$8">
         Scales
       </Text>
       <ScaleTabs />
-    </ScrollView>
+    </View>
   );
 }
