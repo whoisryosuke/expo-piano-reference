@@ -63,9 +63,7 @@ const ScaleTabs = (props: Props) => {
           </Button>
         ))}
       </XStack>
-      <AnimatePresence initial={false}>
-        <TabsContent key={baseNote} baseNote={baseNote} />
-      </AnimatePresence>
+      <TabsContent key={baseNote} baseNote={baseNote} />
     </View>
   );
 };

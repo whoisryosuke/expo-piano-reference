@@ -95,13 +95,11 @@ const ChordTabs = (props: Props) => {
           </Button>
         ))}
       </XStack>
-      <AnimatePresence initial={false}>
-        <TabsContent
-          key={`${baseNote}-${currentTab}`}
-          value={currentTab}
-          baseNote={baseNote}
-        />
-      </AnimatePresence>
+      <TabsContent
+        key={`${baseNote}-${currentTab}`}
+        value={currentTab}
+        baseNote={baseNote}
+      />
     </View>
   );
 };
