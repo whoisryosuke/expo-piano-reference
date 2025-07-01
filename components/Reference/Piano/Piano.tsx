@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList, ListRenderItem } from "react-native";
 import React from "react";
 import { generateKeysByOctave } from "@/utils/piano";
 import PianoKey from "./PianoKey";
-import { XStack } from "tamagui";
+import { ScrollView, XStack } from "tamagui";
 import { BaseNote, Note } from "@/constants/piano";
 
 type Props = {
@@ -10,30 +10,30 @@ type Props = {
 };
 
 const Piano = ({ pressed = [] }: Props) => {
-  const pianoKeySets = generateKeysByOctave(false, 4, 5);
+  const pianoKeySets = generateKeysByOctave(false, 4, 5) as Note[][];
 
-  return (
-    <XStack>
-      {pianoKeySets.map((pianoKeySet, index) => (
-        <XStack key={index}>
-          {pianoKeySet.map((pianoKey) => {
-            const testBlackNote = `${pianoKey.slice(0, -1)}#${pianoKey.slice(
-              -1
-            )}` as Note;
-            const isBlackPressed = pressed.includes(testBlackNote);
-            return (
-              <PianoKey
-                key={pianoKey}
-                note={pianoKey}
-                pressed={pressed.includes(pianoKey)}
-                blackPressed={isBlackPressed}
-              />
-            );
-          })}
-        </XStack>
-      ))}
-    </XStack>
-  );
+  const renderKeys: ListRenderItem<Note[]> = ({ item: pianoKeySet, index }) => {
+    return (
+      <XStack key={index}>
+        {pianoKeySet.map((pianoKey) => {
+          const testBlackNote = `${pianoKey.slice(0, -1)}#${pianoKey.slice(
+            -1
+          )}` as Note;
+          const isBlackPressed = pressed.includes(testBlackNote);
+          return (
+            <PianoKey
+              key={pianoKey}
+              note={pianoKey}
+              pressed={pressed.includes(pianoKey)}
+              blackPressed={isBlackPressed}
+            />
+          );
+        })}
+      </XStack>
+    );
+  };
+
+  return <FlatList data={pianoKeySets} horizontal renderItem={renderKeys} />;
 };
 
 export default Piano;

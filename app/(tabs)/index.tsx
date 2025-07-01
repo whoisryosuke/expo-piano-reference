@@ -5,12 +5,16 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import ChordTest from "@/components/ChordTest";
-import { ScrollView } from "tamagui";
+import { ScrollView, Text } from "tamagui";
+import ChordTabs from "@/components/Reference/Chord/ChordTabs";
 
 export default function HomeScreen() {
   return (
     <ScrollView p="$4" bg="$background">
-      <ChordTest />
+      <Text fontSize="$10" fontWeight="bold" mb="$4" mt="$8">
+        Chords
+      </Text>
+      <ChordTabs />
     </ScrollView>
   );
 }
