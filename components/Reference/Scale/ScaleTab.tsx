@@ -1,5 +1,5 @@
 import { BaseNote, NOTE_LETTERS_WITH_BLACK } from "@/constants/piano";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Text, View, XStack, YStack } from "tamagui";
 import { Chord, ChordType, Scale, ScaleType } from "tonal";
 import ScaleReference from "./ScaleReference";
@@ -12,16 +12,21 @@ type Props = {
 };
 
 const ScaleTab = ({ baseNote = "C", octave }: Props) => {
+  const scaleNames = useMemo(() => {
+    console.log("generating scale names....");
+    return ScaleType.names();
+  }, []);
   const [scales, setScales] = useState<ReferenceItem[]>([]);
 
   useEffect(() => {
     var startTime = performance.now();
-    const newScales = ScaleType.names().map((scaleType) => {
+    const newScales = scaleNames.map((scaleType) => {
       const rootNote = `${baseNote}${octave}`;
       return {
         note: rootNote,
         name: `${rootNote} ${scaleType}`,
-        notes: Scale.get(`${rootNote} ${scaleType}`).notes,
+        type: scaleType,
+        // notes: Scale.get(`${rootNote} ${scaleType}`).notes,
       };
     }) as ReferenceItem[];
     var endTime = performance.now();

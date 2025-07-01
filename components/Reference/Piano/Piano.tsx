@@ -1,5 +1,5 @@
 import { View, Text, FlatList, ListRenderItem } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import { generateKeysByOctave } from "@/utils/piano";
 import PianoKey from "./PianoKey";
 import { ScrollView, XStack } from "tamagui";
@@ -11,11 +11,11 @@ type Props = {
 };
 
 const Piano = ({ pressed = [], octaveRange = [4, 5] }: Props) => {
-  const pianoKeySets = generateKeysByOctave(
-    false,
-    octaveRange[0],
-    octaveRange[1]
-  ) as Note[][];
+  const pianoKeySets = useMemo(
+    () =>
+      generateKeysByOctave(false, octaveRange[0], octaveRange[1]) as Note[][],
+    []
+  );
 
   const renderKeys: ListRenderItem<Note[]> = ({ item: pianoKeySet, index }) => {
     return (

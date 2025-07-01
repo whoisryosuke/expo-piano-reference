@@ -11,7 +11,7 @@ import ScaleTabs from "@/components/Reference/Scale/ScaleTabs";
 
 export default function TabTwoScreen() {
   return (
-    <View p="$4" bg="$background">
+    <View p="$4" bg="$background" flex={1}>
       <Text fontSize="$10" fontWeight="bold" mb="$4" mt="$8">
         Scales
       </Text>

@@ -20,6 +20,7 @@ import ScaleTab from "./ScaleTab";
 const TabsContent = ({ baseNote, ...props }: { baseNote: BaseNote }) => {
   return (
     <View
+      flex={1}
       animation="medium"
       enterStyle={{
         opacity: 0,
@@ -44,7 +45,7 @@ const ScaleTabs = (props: Props) => {
   };
 
   return (
-    <View>
+    <View flex={1}>
       <XStack mb="$4">
         {NOTE_LETTERS.map((noteLetter) => (
           <Button

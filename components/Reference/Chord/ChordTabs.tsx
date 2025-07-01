@@ -26,6 +26,7 @@ const TabsContent = ({
 }) => {
   return (
     <View
+      flex={1}
       animation="medium"
       enterStyle={{
         opacity: 0,
@@ -56,7 +57,7 @@ const ChordTabs = (props: Props) => {
   };
 
   return (
-    <View>
+    <View flex={1}>
       <XStack mb="$4">
         {NOTE_LETTERS.map((noteLetter) => (
           <Button
